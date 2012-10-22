@@ -1,16 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[My Octopress Blog]]></title>
-  <link href="http://yoursite.com/atom.xml" rel="self"/>
-  <link href="http://yoursite.com/"/>
-  <updated>2012-10-09T13:30:50+10:00</updated>
-  <id>http://yoursite.com/</id>
+  <title><![CDATA[Tech Note]]></title>
+  <link href="http://ygpark2.herokuapp.com/atom.xml" rel="self"/>
+  <link href="http://ygpark2.herokuapp.com/"/>
+  <updated>2012-10-22T10:37:55+10:00</updated>
+  <id>http://ygpark2.herokuapp.com/</id>
   <author>
-    <name><![CDATA[Your Name]]></name>
+    <name><![CDATA[Young Gyu Park]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[when rake new_post command does not work in zsh]]></title>
+    <link href="http://ygpark2.herokuapp.com/blog/2012/10/22/when-rake-new-post-command-does-not-work-in-zsh/"/>
+    <updated>2012-10-22T10:15:00+10:00</updated>
+    <id>http://ygpark2.herokuapp.com/blog/2012/10/22/when-rake-new-post-command-does-not-work-in-zsh</id>
+    <content type="html"><![CDATA[<p>To work around the problem, use below command</p>
+
+<p>Liquid error: ClassNotFound: no lexer for alias &#8216;shell&#8217; found</p>
+
+<p>Another way to avoid the problem is to add next configuration in your .zshrc</p>
+
+<p>Liquid error: ClassNotFound: no lexer for alias &#8216;shell&#8217; found</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[how to use octopress as to posting and deploying to heroku]]></title>
+    <link href="http://ygpark2.herokuapp.com/blog/2012/10/22/how-to-use-otopress-as-to-posting-and-deploying-to-heroku/"/>
+    <updated>2012-10-22T10:14:00+10:00</updated>
+    <id>http://ygpark2.herokuapp.com/blog/2012/10/22/how-to-use-otopress-as-to-posting-and-deploying-to-heroku</id>
+    <content type="html"><![CDATA[<p>When a repo is cloned, it has a default remote called &#8220;origin&#8221; pointing to your forked repo on GitHub.
+To keep track of the original repo, you need to add another remote repo named &#8220;upstream&#8221;</p>
+
+<p>Liquid error: ClassNotFound: no lexer for alias &#8216;shell&#8217; found</p>
+
+<p>Those above command will allow you to synchronize the original octopress code.</p>
+
+<p>Now, it&#8217;s time to post a new writing on octopress</p>
+
+<p>Liquid error: ClassNotFound: no lexer for alias &#8216;shell&#8217; found</p>
+
+<p>This command will set the default repository to be effected by push and fetch command.</p>
+
+<p>Liquid error: ClassNotFound: no lexer for alias &#8216;shell&#8217; found</p>
+
+<p>The below commands will commit the modified codes and push to heroku repository so that heroku can recognize your posting.</p>
+
+<p>Liquid error: ClassNotFound: no lexer for alias &#8216;shell&#8217; found</p>
+]]></content>
+  </entry>
   
 </feed>

@@ -1,11 +1,23 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
-        <loc>http://yoursite.com/blog/archives/</loc>
-        <lastmod>2012-09-27T14:51:01+10:00</lastmod>
+        <loc>
+            http://ygpark2.herokuapp.com/blog/2012/10/22/how-to-use-otopress-as-to-posting-and-deploying-to-heroku/
+        </loc>
+        <lastmod>2012-10-22T10:30:38+10:00</lastmod>
     </url>
     <url>
-        <loc>http://yoursite.com/</loc>
-        <lastmod>2012-09-27T14:51:01+10:00</lastmod>
+        <loc>
+            http://ygpark2.herokuapp.com/blog/2012/10/22/when-rake-new-post-command-does-not-work-in-zsh/
+        </loc>
+        <lastmod>2012-10-22T10:35:03+10:00</lastmod>
+    </url>
+    <url>
+        <loc>http://ygpark2.herokuapp.com/blog/archives/</loc>
+        <lastmod>2012-10-22T10:35:03+10:00</lastmod>
+    </url>
+    <url>
+        <loc>http://ygpark2.herokuapp.com/</loc>
+        <lastmod>2012-10-22T10:35:03+10:00</lastmod>
     </url>
 </urlset>
