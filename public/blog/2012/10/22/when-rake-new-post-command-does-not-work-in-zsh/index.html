@@ -38,7 +38,7 @@ rake new_post\[&quot;My new post&quot;\] Another way to avoid the problem is to 
   <header role="banner"><hgroup>
   <h1><a href="/">Tech Note</a></h1>
   
-    <h2>A blogging framework for hackers.</h2>
+    <h2>A technical note about what I found in the life of a programmer.</h2>
   
 </hgroup>
 
@@ -142,7 +142,7 @@ rake new_post\[&quot;My new post&quot;\] Another way to avoid the problem is to 
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://ygpark2.herokuapp.com/blog/2012/10/22/when-rake-new-post-command-does-not-work-in-zsh/" data-via="ygpark2" data-counturl="http://ygpark2.herokuapp.com/blog/2012/10/22/when-rake-new-post-command-does-not-work-in-zsh/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://ygpark2.herokuapp.com/blog/2012/10/22/when-rake-new-post-command-does-not-work-in-zsh/" data-via="" data-counturl="http://ygpark2.herokuapp.com/blog/2012/10/22/when-rake-new-post-command-does-not-work-in-zsh/" >Tweet</a>
   
   
   
@@ -159,6 +159,12 @@ rake new_post\[&quot;My new post&quot;\] Another way to avoid the problem is to 
     </p>
   </footer>
 </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 
@@ -180,22 +186,6 @@ rake new_post\[&quot;My new post&quot;\] Another way to avoid the problem is to 
 </section>
 
 
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating...</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("ygpark2", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/ygpark2" class="twitter-follow-button" data-show-count="false">Follow @ygpark2</a>
-  
-</section>
-
 
 
 
@@ -213,6 +203,22 @@ rake new_post\[&quot;My new post&quot;\] Another way to avoid the problem is to 
 
 </footer>
   
+
+<script type="text/javascript">
+      var disqus_shortname = 'ygpark2technote';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://ygpark2.herokuapp.com/blog/2012/10/22/when-rake-new-post-command-does-not-work-in-zsh/';
+        var disqus_url = 'http://ygpark2.herokuapp.com/blog/2012/10/22/when-rake-new-post-command-does-not-work-in-zsh/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
 
 
 
