@@ -4,7 +4,7 @@
   <title><![CDATA[Tech Note]]></title>
   <link href="http://ygpark2.herokuapp.com/atom.xml" rel="self"/>
   <link href="http://ygpark2.herokuapp.com/"/>
-  <updated>2012-10-22T10:37:55+10:00</updated>
+  <updated>2012-10-22T11:40:57+10:00</updated>
   <id>http://ygpark2.herokuapp.com/</id>
   <author>
     <name><![CDATA[Young Gyu Park]]></name>
@@ -20,11 +20,19 @@
     <id>http://ygpark2.herokuapp.com/blog/2012/10/22/when-rake-new-post-command-does-not-work-in-zsh</id>
     <content type="html"><![CDATA[<p>To work around the problem, use below command</p>
 
-<p>Liquid error: ClassNotFound: no lexer for alias &#8216;shell&#8217; found</p>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>rake new_post<span class="se">\[</span><span class="s2">&quot;My new post&quot;</span><span class="se">\]</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>Another way to avoid the problem is to add next configuration in your .zshrc</p>
 
-<p>Liquid error: ClassNotFound: no lexer for alias &#8216;shell&#8217; found</p>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">alias </span><span class="nv">rake</span><span class="o">=</span><span class="s1">&#39;noglob rake&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
 ]]></content>
   </entry>
   
@@ -36,21 +44,51 @@
     <content type="html"><![CDATA[<p>When a repo is cloned, it has a default remote called &#8220;origin&#8221; pointing to your forked repo on GitHub.
 To keep track of the original repo, you need to add another remote repo named &#8220;upstream&#8221;</p>
 
-<p>Liquid error: ClassNotFound: no lexer for alias &#8216;shell&#8217; found</p>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>git remote add upstream https://github.com/<span class="o">(</span>username<span class="o">)</span>/repository_name.git
+</span><span class='line'>git fetch upstream
+</span><span class='line'>git merge upstream/master
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>Those above command will allow you to synchronize the original octopress code.</p>
 
 <p>Now, it&#8217;s time to post a new writing on octopress</p>
 
-<p>Liquid error: ClassNotFound: no lexer for alias &#8216;shell&#8217; found</p>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>rake new_post<span class="o">[</span><span class="s2">&quot;title_here&quot;</span><span class="o">]</span>
+</span><span class='line'><span class="c"># if you are using zsh, otherwise you will see this error message &quot;zsh: no matches found: new_post[&quot;title_here&quot;]&quot;</span>
+</span><span class='line'>rake new_post<span class="se">\[</span><span class="s2">&quot;title_here&quot;</span><span class="se">\]</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>This command will set the default repository to be effected by push and fetch command.</p>
 
-<p>Liquid error: ClassNotFound: no lexer for alias &#8216;shell&#8217; found</p>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c"># Set heroku to be the default remote for push/fetch</span>
+</span><span class='line'>git config branch.master.remote heroku
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>The below commands will commit the modified codes and push to heroku repository so that heroku can recognize your posting.</p>
 
-<p>Liquid error: ClassNotFound: no lexer for alias &#8216;shell&#8217; found</p>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>rake generate
+</span><span class='line'>git add .
+</span><span class='line'>git commit -m <span class="s1">&#39;commit message&#39;</span>
+</span><span class='line'>git push heroku master
+</span></code></pre></td></tr></table></div></figure>
+
+
+
 ]]></content>
   </entry>
   

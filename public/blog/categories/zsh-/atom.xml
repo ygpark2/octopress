@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: zsh, | Tech Note]]></title>
+  <link href="http://ygpark2.herokuapp.com/blog/categories/zsh-/atom.xml" rel="self"/>
+  <link href="http://ygpark2.herokuapp.com/"/>
+  <updated>2012-10-22T11:40:57+10:00</updated>
+  <id>http://ygpark2.herokuapp.com/</id>
+  <author>
+    <name><![CDATA[Young Gyu Park]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[when rake new_post command does not work in zsh]]></title>
+    <link href="http://ygpark2.herokuapp.com/blog/2012/10/22/when-rake-new-post-command-does-not-work-in-zsh/"/>
+    <updated>2012-10-22T10:15:00+10:00</updated>
+    <id>http://ygpark2.herokuapp.com/blog/2012/10/22/when-rake-new-post-command-does-not-work-in-zsh</id>
+    <content type="html"><![CDATA[<p>To work around the problem, use below command</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>rake new_post<span class="o">[</span><span class="s2">&quot;My new post&quot;</span><span class="o">]</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Another way to avoid the problem is to add next configuration in your .zshrc</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">alias </span><span class="nv">rake</span><span class="o">=</span><span class="s1">&#39;noglob rake&#39;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+]]></content>
+  </entry>
+  
+</feed>
