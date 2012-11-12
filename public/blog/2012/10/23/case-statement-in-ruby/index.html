@@ -5,12 +5,22 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>how to use octopress as to posting and deploying to heroku - Tech Note</title>
+  <title>case statement in ruby - Tech Note</title>
   <meta name="author" content="Young Gyu Park">
 
   
-  <meta name="description" content="When a repo is cloned, it has a default remote called &#8220;origin&#8221; pointing to your forked repo on GitHub.
-To keep track of the original repo &hellip;">
+  <meta name="description" content="Ruby case &#8230; when statement use the === operator internally. 1
+2
+3
+4
+5
+6
+7
+8
+9
+obj = &#39;hello&#39;
+case obj.class
+when String print(&#39;It is &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +29,7 @@ To keep track of the original repo &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://ygpark2.herokuapp.com/blog/2012/10/22/how-to-use-otopress-as-to-posting-and-deploying-to-heroku/">
+  <link rel="canonical" href="http://ygpark2.herokuapp.com/blog/2012/10/23/case-statement-in-ruby/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -68,7 +78,7 @@ To keep track of the original repo &hellip;">
   
   <header>
     
-      <h1 class="entry-title">How to Use Octopress as to Posting and Deploying to Heroku</h1>
+      <h1 class="entry-title">Case Statement in Ruby</h1>
     
     
       <p class="meta">
@@ -84,7 +94,7 @@ To keep track of the original repo &hellip;">
   
 
 
-<time datetime="2012-10-22T10:14:00+10:00" pubdate data-updated="true">Oct 22<span>nd</span>, 2012</time>
+<time datetime="2012-10-23T10:40:00+10:00" pubdate data-updated="true">Oct 23<span>rd</span>, 2012</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -93,50 +103,77 @@ To keep track of the original repo &hellip;">
   </header>
 
 
-<div class="entry-content"><p>When a repo is cloned, it has a default remote called &#8220;origin&#8221; pointing to your forked repo on GitHub.
-To keep track of the original repo, you need to add another remote repo named &#8220;upstream&#8221;</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>git remote add upstream https://github.com/<span class="o">(</span>username<span class="o">)</span>/repository_name.git
-</span><span class='line'>git fetch upstream
-</span><span class='line'>git merge upstream/master
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Those above command will allow you to synchronize the original octopress code.</p>
-
-<p>Now, it&#8217;s time to post a new writing on octopress</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>rake new_post<span class="o">[</span><span class="s2">&quot;title_here&quot;</span><span class="o">]</span>
-</span><span class='line'><span class="c"># if you are using zsh, otherwise you will see this error message &quot;zsh: no matches found: new_post[&quot;title_here&quot;]&quot;</span>
-</span><span class='line'>rake new_post<span class="se">\[</span><span class="s2">&quot;title_here&quot;</span><span class="se">\]</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>This command will set the default repository to be effected by push and fetch command.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c"># Set heroku to be the default remote for push/fetch</span>
-</span><span class='line'>git config branch.master.remote heroku
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>The below commands will commit the modified codes and push to heroku repository so that heroku can recognize your posting.</p>
+<div class="entry-content"><p>Ruby case &#8230; when statement use the === operator internally.</p>
 
 <figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>rake generate
-</span><span class='line'>git add .
-</span><span class='line'>git commit -m <span class="s1">&#39;commit message&#39;</span>
-</span><span class='line'>git push heroku master
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">obj</span> <span class="o">=</span> <span class="s1">&#39;hello&#39;</span>
+</span><span class='line'><span class="k">case</span> <span class="n">obj</span><span class="o">.</span><span class="n">class</span>
+</span><span class='line'><span class="k">when</span> <span class="nb">String</span>
+</span><span class='line'>  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;It is a string&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="k">when</span> <span class="no">Fixnum</span>
+</span><span class='line'>  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;It is a number&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="k">else</span>
+</span><span class='line'>  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;It is not a string&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">obj</span> <span class="o">=</span> <span class="s1">&#39;hello&#39;</span>
+</span><span class='line'><span class="k">case</span> <span class="n">obj</span>  <span class="c1"># was case obj.class</span>
+</span><span class='line'><span class="k">when</span> <span class="nb">String</span>
+</span><span class='line'>  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;It is a string&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="k">when</span> <span class="no">Fixnum</span>
+</span><span class='line'>  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;It is a number&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="k">else</span>
+</span><span class='line'>  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;It is not a string&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Without parameter</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">case</span>
+</span><span class='line'><span class="k">when</span> <span class="n">b</span> <span class="o">&lt;</span> <span class="mi">3</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;Little than 3&quot;</span>
+</span><span class='line'><span class="k">when</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">3</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;Equal to 3&quot;</span>
+</span><span class='line'><span class="k">when</span> <span class="n">b</span> <span class="o">===</span> <span class="p">(</span><span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">10</span><span class="p">)</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;Something in closed range of [1..10]&quot;</span>
+</span><span class='line'><span class="k">end</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -163,12 +200,12 @@ To keep track of the original repo, you need to add another remote repo named &#
   
 
 
-<time datetime="2012-10-22T10:14:00+10:00" pubdate data-updated="true">Oct 22<span>nd</span>, 2012</time>
+<time datetime="2012-10-23T10:40:00+10:00" pubdate data-updated="true">Oct 23<span>rd</span>, 2012</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/heroku-/'>heroku,</a>, <a class='category' href='/blog/categories/octopress/'>octopress</a>
+    <a class='category' href='/blog/categories/case/'>case</a>, <a class='category' href='/blog/categories/ruby-/'>ruby,</a>
   
 </span>
 
@@ -177,7 +214,7 @@ To keep track of the original repo, you need to add another remote repo named &#
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://ygpark2.herokuapp.com/blog/2012/10/22/how-to-use-otopress-as-to-posting-and-deploying-to-heroku/" data-via="" data-counturl="http://ygpark2.herokuapp.com/blog/2012/10/22/how-to-use-otopress-as-to-posting-and-deploying-to-heroku/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://ygpark2.herokuapp.com/blog/2012/10/23/case-statement-in-ruby/" data-via="" data-counturl="http://ygpark2.herokuapp.com/blog/2012/10/23/case-statement-in-ruby/" >Tweet</a>
   
   
   
@@ -188,8 +225,10 @@ To keep track of the original repo, you need to add another remote repo named &#
     
     <p class="meta">
       
+        <a class="basic-alignment left" href="/blog/2012/10/22/when-rake-new-post-command-does-not-work-in-zsh/" title="Previous Post: when rake new_post command does not work in zsh">&laquo; when rake new_post command does not work in zsh</a>
       
-        <a class="basic-alignment right" href="/blog/2012/10/22/when-rake-new-post-command-does-not-work-in-zsh/" title="Next Post: when rake new_post command does not work in zsh">when rake new_post command does not work in zsh &raquo;</a>
+      
+        <a class="basic-alignment right" href="/blog/2012/10/26/how-to-implement-the-circulating-job-in-nodejs-daida-module/" title="Next Post: How to implement the circulating job in nodejs Daida module">How to implement the circulating job in nodejs Daida module &raquo;</a>
       
     </p>
   </footer>
@@ -256,8 +295,8 @@ To keep track of the original repo, you need to add another remote repo named &#
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://ygpark2.herokuapp.com/blog/2012/10/22/how-to-use-otopress-as-to-posting-and-deploying-to-heroku/';
-        var disqus_url = 'http://ygpark2.herokuapp.com/blog/2012/10/22/how-to-use-otopress-as-to-posting-and-deploying-to-heroku/';
+        var disqus_identifier = 'http://ygpark2.herokuapp.com/blog/2012/10/23/case-statement-in-ruby/';
+        var disqus_url = 'http://ygpark2.herokuapp.com/blog/2012/10/23/case-statement-in-ruby/';
         var disqus_script = 'embed.js';
       
     (function () {

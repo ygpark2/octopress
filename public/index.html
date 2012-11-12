@@ -9,8 +9,8 @@
   <meta name="author" content="Young Gyu Park">
 
   
-  <meta name="description" content="To work around the problem, use below command 1
-rake new_post\[&quot;My new post&quot;\] Another way to avoid the problem is to add next &hellip;">
+  <meta name="description" content="
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -71,6 +71,309 @@ rake new_post\[&quot;My new post&quot;\] Another way to avoid the problem is to 
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2012/10/26/tip-on-adding-several-seconds-to-the-current-time-in-nodejs-date-module/">Tip on Adding Several Seconds to the Current Time in Nodejs Date Module</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-26T13:06:00+10:00" pubdate data-updated="true">Oct 26<span>th</span>, 2012</time>
+        
+         | <a href="/blog/2012/10/26/tip-on-adding-several-seconds-to-the-current-time-in-nodejs-date-module/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/10/26/how-to-implement-the-circulating-job-in-nodejs-daida-module/">How to Implement the Circulating Job in Nodejs Daida Module</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-26T13:02:00+10:00" pubdate data-updated="true">Oct 26<span>th</span>, 2012</time>
+        
+         | <a href="/blog/2012/10/26/how-to-implement-the-circulating-job-in-nodejs-daida-module/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I believe Daida is quite well made job scheduler module in nodejs.</p>
+
+<p>Basically, Daida is providing several scheduling strategies. The very representative strategy among them is Local Strategy which I am using.currently.</p>
+
+<p>Daida is quite flexible module to suite your variety of needs by redefining the basic prototype.
+You can find the detail information about how to use in this link.</p>
+
+<p>What I want to do is to make a chain of job list. So when one job is finished, the job know what the next job is called. Hence this is sort of linked list in terms of concept.</p>
+
+<p>This is the task list that I defined. As you can see, at the end of the code, I redefined the nextJob value again otherwise the first task can refer to the job</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">scheduledOLSessionEndTask</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">handlerModule</span><span class="o">:</span> <span class="s2">&quot;Olsession&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">runAfter</span><span class="o">:</span> <span class="mi">3000</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">handlerFunction</span><span class="o">:</span> <span class="s2">&quot;session_end&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">nextJob</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">args</span><span class="o">:</span> <span class="p">{</span><span class="nx">delayTime</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span> <span class="nx">context</span><span class="o">:</span> <span class="nx">context</span><span class="p">}</span>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">scheduledOLSessionStartTask</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">handlerModule</span><span class="o">:</span> <span class="s2">&quot;Olsession&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">runAfter</span><span class="o">:</span> <span class="mi">2000</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">handlerFunction</span><span class="o">:</span> <span class="s2">&quot;session_start&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">nextJob</span><span class="o">:</span> <span class="nx">scheduledOLSessionEndTask</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">args</span><span class="o">:</span> <span class="p">{</span><span class="nx">delayTime</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span> <span class="nx">context</span><span class="o">:</span> <span class="nx">context</span><span class="p">}</span>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">scheduledOLSessionCreateTask</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">handlerModule</span><span class="o">:</span> <span class="s2">&quot;Olsession&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">runAfter</span><span class="o">:</span> <span class="mi">1000</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">handlerFunction</span><span class="o">:</span> <span class="s2">&quot;session_create&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">nextJob</span><span class="o">:</span> <span class="nx">scheduledOLSessionStartTask</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">args</span><span class="o">:</span> <span class="p">{</span><span class="nx">delayTime</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span> <span class="nx">queNum</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span> <span class="nx">context</span><span class="o">:</span> <span class="nx">context</span><span class="p">}</span>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">scheduledOLSessionEndTask</span><span class="p">.</span><span class="nx">nextJob</span> <span class="o">=</span> <span class="nx">scheduledOLSessionCreateTask</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In this code, I ensure that there is only one job in the job queue by redefining the preRunCallback
+Before running the routine, I deleted the job in the queue.so that I empty the job in the queue.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">scheduler</span><span class="p">.</span><span class="nx">preRunCallback</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">job</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">this</span><span class="p">.</span><span class="nx">_logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;=========== Job: &#39;</span> <span class="o">+</span> <span class="nx">job</span><span class="p">.</span><span class="nx">_id</span> <span class="o">+</span> <span class="s1">&#39;  checking in for preRunCallback&#39;</span><span class="p">);</span>
+</span><span class='line'>  <span class="k">while</span> <span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">_jobqueue</span><span class="p">.</span><span class="nx">_queue</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">job</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">_jobqueue</span><span class="p">.</span><span class="nx">_queue</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">_jobqueue</span><span class="p">.</span><span class="nx">_queue</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">job</span><span class="p">),</span> <span class="mi">1</span> <span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In the postRunCallback function, I added the job again</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">scheduler</span><span class="p">.</span><span class="nx">postRunCallback</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">job</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">this</span><span class="p">.</span><span class="nx">_logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;Job: &#39;</span> <span class="o">+</span> <span class="nx">job</span><span class="p">.</span><span class="nx">_id</span> <span class="o">+</span> <span class="s1">&#39; finished.&#39;</span><span class="p">);</span>
+</span><span class='line'>  <span class="k">if</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">_jobqueue</span><span class="p">.</span><span class="nx">_queue</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">job</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">if</span> <span class="p">(</span><span class="nx">job</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="s1">&#39;nextJob&#39;</span><span class="p">))</span> <span class="p">{</span>
+</span><span class='line'>          <span class="k">this</span><span class="p">.</span><span class="nx">_logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s2">&quot;add next job !!!!!!!!!!!!!!!!!!!!!&quot;</span><span class="p">);</span>
+</span><span class='line'>          <span class="k">this</span><span class="p">.</span><span class="nx">schedule</span><span class="p">(</span><span class="nx">job</span><span class="p">.</span><span class="nx">nextJob</span><span class="p">);</span>
+</span><span class='line'>      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>          <span class="k">this</span><span class="p">.</span><span class="nx">_logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s2">&quot;add same job !!!!!!!!!!!!!!!!!!!!!&quot;</span><span class="p">);</span>
+</span><span class='line'>          <span class="k">this</span><span class="p">.</span><span class="nx">schedule</span><span class="p">(</span><span class="nx">job</span><span class="p">);</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">_logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s2">&quot;already new job in the queue !!!!!!!!!!!!&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/10/23/case-statement-in-ruby/">Case Statement in Ruby</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-23T10:40:00+10:00" pubdate data-updated="true">Oct 23<span>rd</span>, 2012</time>
+        
+         | <a href="/blog/2012/10/23/case-statement-in-ruby/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ruby case &#8230; when statement use the === operator internally.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">obj</span> <span class="o">=</span> <span class="s1">&#39;hello&#39;</span>
+</span><span class='line'><span class="k">case</span> <span class="n">obj</span><span class="o">.</span><span class="n">class</span>
+</span><span class='line'><span class="k">when</span> <span class="nb">String</span>
+</span><span class='line'>  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;It is a string&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="k">when</span> <span class="no">Fixnum</span>
+</span><span class='line'>  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;It is a number&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="k">else</span>
+</span><span class='line'>  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;It is not a string&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">obj</span> <span class="o">=</span> <span class="s1">&#39;hello&#39;</span>
+</span><span class='line'><span class="k">case</span> <span class="n">obj</span>  <span class="c1"># was case obj.class</span>
+</span><span class='line'><span class="k">when</span> <span class="nb">String</span>
+</span><span class='line'>  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;It is a string&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="k">when</span> <span class="no">Fixnum</span>
+</span><span class='line'>  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;It is a number&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="k">else</span>
+</span><span class='line'>  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;It is not a string&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Without parameter</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">case</span>
+</span><span class='line'><span class="k">when</span> <span class="n">b</span> <span class="o">&lt;</span> <span class="mi">3</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;Little than 3&quot;</span>
+</span><span class='line'><span class="k">when</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">3</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;Equal to 3&quot;</span>
+</span><span class='line'><span class="k">when</span> <span class="n">b</span> <span class="o">===</span> <span class="p">(</span><span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">10</span><span class="p">)</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;Something in closed range of [1..10]&quot;</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2012/10/22/when-rake-new-post-command-does-not-work-in-zsh/">When Rake New_post Command Does Not Work in Zsh</a></h1>
     
     
@@ -88,6 +391,8 @@ rake new_post\[&quot;My new post&quot;\] Another way to avoid the problem is to 
 
 
 <time datetime="2012-10-22T10:15:00+10:00" pubdate data-updated="true">Oct 22<span>nd</span>, 2012</time>
+        
+         | <a href="/blog/2012/10/22/when-rake-new-post-command-does-not-work-in-zsh/#disqus_thread">Comments</a>
         
       </p>
     
@@ -138,6 +443,8 @@ rake new_post\[&quot;My new post&quot;\] Another way to avoid the problem is to 
 
 
 <time datetime="2012-10-22T10:14:00+10:00" pubdate data-updated="true">Oct 22<span>nd</span>, 2012</time>
+        
+         | <a href="/blog/2012/10/22/how-to-use-otopress-as-to-posting-and-deploying-to-heroku/#disqus_thread">Comments</a>
         
       </p>
     
@@ -210,6 +517,18 @@ To keep track of the original repo, you need to add another remote repo named &#
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/10/26/tip-on-adding-several-seconds-to-the-current-time-in-nodejs-date-module/">Tip on adding several seconds to the current time in nodejs Date module</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/10/26/how-to-implement-the-circulating-job-in-nodejs-daida-module/">How to implement the circulating job in nodejs Daida module</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/10/23/case-statement-in-ruby/">case statement in ruby</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2012/10/22/when-rake-new-post-command-does-not-work-in-zsh/">when rake new_post command does not work in zsh</a>

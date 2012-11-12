@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: case | Tech Note]]></title>
+  <link href="http://ygpark2.herokuapp.com/blog/categories/case/atom.xml" rel="self"/>
+  <link href="http://ygpark2.herokuapp.com/"/>
+  <updated>2012-11-12T11:51:35+10:00</updated>
+  <id>http://ygpark2.herokuapp.com/</id>
+  <author>
+    <name><![CDATA[Young Gyu Park]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[case statement in ruby]]></title>
+    <link href="http://ygpark2.herokuapp.com/blog/2012/10/23/case-statement-in-ruby/"/>
+    <updated>2012-10-23T10:40:00+10:00</updated>
+    <id>http://ygpark2.herokuapp.com/blog/2012/10/23/case-statement-in-ruby</id>
+    <content type="html"><![CDATA[<p>Ruby case ... when statement use the === operator internally.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">obj</span> <span class="o">=</span> <span class="s1">&#39;hello&#39;</span>
+</span><span class='line'><span class="k">case</span> <span class="n">obj</span><span class="o">.</span><span class="n">class</span>
+</span><span class='line'><span class="k">when</span> <span class="nb">String</span>
+</span><span class='line'>  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;It is a string&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="k">when</span> <span class="no">Fixnum</span>
+</span><span class='line'>  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;It is a number&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="k">else</span>
+</span><span class='line'>  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;It is not a string&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">obj</span> <span class="o">=</span> <span class="s1">&#39;hello&#39;</span>
+</span><span class='line'><span class="k">case</span> <span class="n">obj</span>  <span class="c1"># was case obj.class</span>
+</span><span class='line'><span class="k">when</span> <span class="nb">String</span>
+</span><span class='line'>  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;It is a string&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="k">when</span> <span class="no">Fixnum</span>
+</span><span class='line'>  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;It is a number&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="k">else</span>
+</span><span class='line'>  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;It is not a string&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Without parameter
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">case</span>
+</span><span class='line'><span class="k">when</span> <span class="n">b</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="mi">3</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;Little than 3&quot;</span>
+</span><span class='line'><span class="k">when</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">3</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;Equal to 3&quot;</span>
+</span><span class='line'><span class="k">when</span> <span class="n">b</span> <span class="o">===</span> <span class="p">(</span><span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">10</span><span class="p">)</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;Something in closed range of [1..10]&quot;</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+]]></content>
+  </entry>
+  
+</feed>
