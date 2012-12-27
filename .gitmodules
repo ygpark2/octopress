@@ -1,0 +1,3 @@
+[submodule "cloudfoundry-octopress"]
+	path = cloudfoundry-octopress
+	url = https://github.com/videlalvaro/cloudfoundry-octopress.git
