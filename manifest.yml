@@ -1,0 +1,9 @@
+---
+applications:
+- name: Young Gyu Blog
+  framework: node
+  runtime: node08
+  memory: 64M
+  instances: 1
+  url: Young Gyu Blog.${target-base}
+  path: .
