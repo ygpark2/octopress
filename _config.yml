@@ -2,7 +2,7 @@
 #      Main Configs       #
 # ----------------------- #
 
-url: http://ygpark2.herokuapp.com
+url: http://ygpark2.cloudfoundry.com
 title: Tech Note
 subtitle: A technical note about what I found in the life of a programmer.
 author: Young Gyu Park
