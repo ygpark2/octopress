@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: nodejs | Tech Note]]></title>
+  <link href="http://ygpark2.cloudfoundry.com/blog/categories/nodejs/atom.xml" rel="self"/>
+  <link href="http://ygpark2.cloudfoundry.com/"/>
+  <updated>2013-05-14T11:07:40+10:00</updated>
+  <id>http://ygpark2.cloudfoundry.com/</id>
+  <author>
+    <name><![CDATA[Young Gyu Park]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Tip on adding several seconds to the current time in nodejs Date module]]></title>
+    <link href="http://ygpark2.cloudfoundry.com/blog/2012/10/26/tip-on-adding-several-seconds-to-the-current-time-in-nodejs-date-module/"/>
+    <updated>2012-10-26T13:06:00+10:00</updated>
+    <id>http://ygpark2.cloudfoundry.com/blog/2012/10/26/tip-on-adding-several-seconds-to-the-current-time-in-nodejs-date-module</id>
+    <content type="html"><![CDATA[<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+]]></content>
+  </entry>
+  
+</feed>

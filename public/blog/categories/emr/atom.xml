@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: emr | Tech Note]]></title>
+  <link href="http://ygpark2.cloudfoundry.com/blog/categories/emr/atom.xml" rel="self"/>
+  <link href="http://ygpark2.cloudfoundry.com/"/>
+  <updated>2013-05-14T11:07:40+10:00</updated>
+  <id>http://ygpark2.cloudfoundry.com/</id>
+  <author>
+    <name><![CDATA[Young Gyu Park]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[how to configure java spring hadoop framework to run on amazon emr]]></title>
+    <link href="http://ygpark2.cloudfoundry.com/blog/2013/01/07/how-to-configure-java-spring-hadoop-framework-to-run-on-amazon-emr/"/>
+    <updated>2013-01-07T09:24:00+10:00</updated>
+    <id>http://ygpark2.cloudfoundry.com/blog/2013/01/07/how-to-configure-java-spring-hadoop-framework-to-run-on-amazon-emr</id>
+    <content type="html"><![CDATA[<p>Start emr instance
+<code>bash start emr instance command
+elastic-mapreduce -c ./cfg/credentials.json --create --name ad-hoc-cluster --instance-group master --instance-type m1.small --instance-count 1 --instance-group core --instance-type m1.small --instance-count 2 --instance-group task --instance-type m1.small --instance-count 3 --bid-price .065 --alive
+</code></p>
+
+<p>Open ssh tunneling
+<code>bash open ssh tunneling command
+elastic-mapreduce -j $JOB_ID --socks
+</code></p>
+
+<p>Create a project</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Tech Note]]></title>
-  <link href="http://ygpark2.herokuapp.com/atom.xml" rel="self"/>
-  <link href="http://ygpark2.herokuapp.com/"/>
-  <updated>2012-12-27T11:32:43+10:00</updated>
-  <id>http://ygpark2.herokuapp.com/</id>
+  <link href="http://ygpark2.cloudfoundry.com/atom.xml" rel="self"/>
+  <link href="http://ygpark2.cloudfoundry.com/"/>
+  <updated>2013-05-14T11:07:40+10:00</updated>
+  <id>http://ygpark2.cloudfoundry.com/</id>
   <author>
     <name><![CDATA[Young Gyu Park]]></name>
     
@@ -14,19 +14,221 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Tip on adding several seconds to the current time in nodejs Date module]]></title>
-    <link href="http://ygpark2.herokuapp.com/blog/2012/10/26/tip-on-adding-several-seconds-to-the-current-time-in-nodejs-date-module/"/>
-    <updated>2012-10-26T13:06:00+10:00</updated>
-    <id>http://ygpark2.herokuapp.com/blog/2012/10/26/tip-on-adding-several-seconds-to-the-current-time-in-nodejs-date-module</id>
+    <title type="html"><![CDATA[Data migration from mysql to cassandra]]></title>
+    <link href="http://ygpark2.cloudfoundry.com/blog/2013/01/24/data-migration-from-mysql-to-cassandra/"/>
+    <updated>2013-01-24T11:32:00+10:00</updated>
+    <id>http://ygpark2.cloudfoundry.com/blog/2013/01/24/data-migration-from-mysql-to-cassandra</id>
     <content type="html"><![CDATA[
 ]]></content>
   </entry>
   
   <entry>
+    <title type="html"><![CDATA[android push notification using GCMBroadcastReceiver and customized BroadcastReciever]]></title>
+    <link href="http://ygpark2.cloudfoundry.com/blog/2013/01/23/android-push-notification-using-gcmbroadcastreceiver-and-customized-broadcastreciever/"/>
+    <updated>2013-01-23T15:40:00+10:00</updated>
+    <id>http://ygpark2.cloudfoundry.com/blog/2013/01/23/android-push-notification-using-gcmbroadcastreceiver-and-customized-broadcastreciever</id>
+    <content type="html"><![CDATA[<p>There are two ways to receive the push message.</p>
+
+<h2>one way is to use GCMBroadcastReceiver.</h2>
+
+<figure class='code'><figcaption><span>AndroidManifest.xml</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;receiver</span>
+</span><span class='line'>  <span class="na">android:name=</span><span class="s">&quot;com.google.android.gcm.GCMBroadcastReceiver&quot;</span>
+</span><span class='line'>  <span class="na">android:permission=</span><span class="s">&quot;com.google.android.c2dm.permission.SEND&quot;</span> <span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;intent-filter&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">&quot;com.google.android.c2dm.intent.RECEIVE&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">&quot;com.google.android.c2dm.intent.REGISTRATION&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nt">&lt;category</span> <span class="na">android:name=</span><span class="s">&quot;com.otherlevels.dailydeals&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/intent-filter&gt;</span>
+</span><span class='line'><span class="nt">&lt;/receiver&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;service</span> <span class="na">android:name=</span><span class="s">&quot;.GCMIntentService&quot;</span> <span class="nt">/&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>As you can see the above AndroidManifest file, they filter the events by setting the action type values between intent-filter tags.
+Because GCMBroadcastReceiver is the class for GCM so you do not need other actions apart from &ldquo;com.google.android.c2dm.intent.RECEIVE&rdquo;, &ldquo;com.google.android.c2dm.intent.REGISTRATION&rdquo;</p>
+
+<figure class='code'><figcaption><span>GCMBroadcastReceiver class</span><a href='https://code.google.com/p/gcm/source/browse/gcm-client/src/com/google/android/gcm/GCMBroadcastReceiver.java'>link</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">GCMBroadcastReceiver</span> <span class="kd">extends</span> <span class="n">BroadcastReceiver</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">TAG</span> <span class="o">=</span> <span class="s">&quot;GCMBroadcastReceiver&quot;</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nd">@Override</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kd">final</span> <span class="kt">void</span> <span class="nf">onReceive</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">Intent</span> <span class="n">intent</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">Log</span><span class="o">.</span><span class="na">v</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;onReceive: &quot;</span> <span class="o">+</span> <span class="n">intent</span><span class="o">.</span><span class="na">getAction</span><span class="o">());</span>
+</span><span class='line'>        <span class="n">String</span> <span class="n">receiverClassName</span> <span class="o">=</span> <span class="n">getClass</span><span class="o">().</span><span class="na">getName</span><span class="o">();</span>
+</span><span class='line'>        <span class="k">if</span> <span class="o">(!</span><span class="n">receiverClassName</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">GCMBroadcastReceiver</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getName</span><span class="o">()))</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">GCMRegistrar</span><span class="o">.</span><span class="na">setRetryReceiverClassName</span><span class="o">(</span><span class="n">receiverClassName</span><span class="o">);</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>        <span class="n">String</span> <span class="n">className</span> <span class="o">=</span> <span class="n">getGCMIntentServiceClassName</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
+</span><span class='line'>        <span class="n">Log</span><span class="o">.</span><span class="na">v</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;GCM IntentService class: &quot;</span> <span class="o">+</span> <span class="n">className</span><span class="o">);</span>
+</span><span class='line'>        <span class="c1">// Delegates to the application-specific intent service.</span>
+</span><span class='line'>        <span class="n">GCMBaseIntentService</span><span class="o">.</span><span class="na">runIntentInService</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">intent</span><span class="o">,</span> <span class="n">className</span><span class="o">);</span>
+</span><span class='line'>        <span class="n">setResult</span><span class="o">(</span><span class="n">Activity</span><span class="o">.</span><span class="na">RESULT_OK</span><span class="o">,</span> <span class="kc">null</span> <span class="cm">/* data */</span><span class="o">,</span> <span class="kc">null</span> <span class="cm">/* extra */</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="o">...</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>The other way is to customize the BroadcastReciever class by inheriting</h2>
+
+<p>In this method, you first need to set the customized java class name including package name for the tag android:name.The next step is to define the broadcast intents containing an action string.</p>
+
+<figure class='code'><figcaption><span>AndroidManifest.xml</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;receiver</span>
+</span><span class='line'>  <span class="na">android:name=</span><span class="s">&quot;com.google.android.gcm.GCMBroadcastReceiver&quot;</span>
+</span><span class='line'>  <span class="na">android:permission=</span><span class="s">&quot;com.google.android.c2dm.permission.SEND&quot;</span> <span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;intent-filter&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">&quot;com.google.android.c2dm.intent.RECEIVE&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">&quot;com.google.android.c2dm.intent.REGISTRATION&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="nt">&lt;category</span> <span class="na">android:name=</span><span class="s">&quot;com.otherlevels.dailydeals&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/intent-filter&gt;</span>
+</span><span class='line'><span class="nt">&lt;/receiver&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The same effect we can make in java code is to use the registerReceiver() method of the Activity class</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">IntentFilter</span> <span class="n">filter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">IntentFilter</span><span class="o">(</span><span class="s">&quot;com.pkg.ain.Broadcast&quot;</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">MyReceiver</span> <span class="n">receiver</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MyReceiver</span><span class="o">();</span>
+</span><span class='line'><span class="n">registerReceiver</span><span class="o">(</span><span class="n">receiver</span><span class="o">,</span> <span class="n">filter</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>There is two ways to filer the action type. One is to use intent-filter tag as you can see above. The other way is to write a code to distinguish the action type on GCMBroadcastReceiver class file. You can see the example for the following code.</p>
+
+<figure class='code'><figcaption><span>onReceive function</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="nd">@Override</span>
+</span><span class='line'><span class="kd">public</span> <span class="kt">void</span> <span class="nf">onReceive</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">Intent</span> <span class="n">intent</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;onReceive with action:&quot;</span> <span class="o">+</span> <span class="n">intent</span><span class="o">.</span><span class="na">getAction</span><span class="o">()+</span><span class="s">&quot;!&quot;</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">intent</span><span class="o">.</span><span class="na">getAction</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="s">&quot;com.google.android.c2dm.intent.REGISTRATION&quot;</span><span class="o">))</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">handleRegistration</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">intent</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">intent</span><span class="o">.</span><span class="na">getAction</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="n">ACTION_SMS_RECEIVED</span><span class="o">))</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">intent</span><span class="o">.</span><span class="na">getAction</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="n">ACTION_NEW_OUTGOING_SMS</span><span class="o">))</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">intent</span><span class="o">.</span><span class="na">getAction</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="s">&quot;com.google.android.c2dm.intent.RECEIVE&quot;</span><span class="o">))</span> <span class="o">{</span>
+</span><span class='line'>        <span class="o">...</span>
+</span><span class='line'>    <span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>References</h2>
+
+<ol>
+<li><a href="http://www.techotopia.com/index.php/Android_Broadcast_Intents_and_Broadcast_Receivers">http://www.techotopia.com/index.php/Android_Broadcast_Intents_and_Broadcast_Receivers</a></li>
+<li><a href="http://stackoverflow.com/questions/6352281/getintent-extras-always-null">http://stackoverflow.com/questions/6352281/getintent-extras-always-null</a></li>
+</ol>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[how to configure java spring hadoop framework to run on amazon emr]]></title>
+    <link href="http://ygpark2.cloudfoundry.com/blog/2013/01/07/how-to-configure-java-spring-hadoop-framework-to-run-on-amazon-emr/"/>
+    <updated>2013-01-07T09:24:00+10:00</updated>
+    <id>http://ygpark2.cloudfoundry.com/blog/2013/01/07/how-to-configure-java-spring-hadoop-framework-to-run-on-amazon-emr</id>
+    <content type="html"><![CDATA[<p>Start emr instance</p>
+
+<figure class='code'><figcaption><span>start emr instance command</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>elastic-mapreduce -c ./cfg/credentials.json --create --name ad-hoc-cluster --instance-group master --instance-type m1.small --instance-count 1 --instance-group core --instance-type m1.small --instance-count 2 --instance-group task --instance-type m1.small --instance-count 3 --bid-price .065 --alive
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Open ssh tunneling</p>
+
+<figure class='code'><figcaption><span>open ssh tunneling command</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>elastic-mapreduce -j <span class="nv">$JOB_ID</span> --socks
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Create a project</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Tip on adding several seconds to the current time in nodejs Date module]]></title>
+    <link href="http://ygpark2.cloudfoundry.com/blog/2012/10/26/tip-on-adding-several-seconds-to-the-current-time-in-nodejs-date-module/"/>
+    <updated>2012-10-26T13:06:00+10:00</updated>
+    <id>http://ygpark2.cloudfoundry.com/blog/2012/10/26/tip-on-adding-several-seconds-to-the-current-time-in-nodejs-date-module</id>
+    <content type="html"><![CDATA[
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[How to implement the circulating job in nodejs Daida module]]></title>
-    <link href="http://ygpark2.herokuapp.com/blog/2012/10/26/how-to-implement-the-circulating-job-in-nodejs-daida-module/"/>
+    <link href="http://ygpark2.cloudfoundry.com/blog/2012/10/26/how-to-implement-the-circulating-job-in-nodejs-daida-module/"/>
     <updated>2012-10-26T13:02:00+10:00</updated>
-    <id>http://ygpark2.herokuapp.com/blog/2012/10/26/how-to-implement-the-circulating-job-in-nodejs-daida-module</id>
+    <id>http://ygpark2.cloudfoundry.com/blog/2012/10/26/how-to-implement-the-circulating-job-in-nodejs-daida-module</id>
     <content type="html"><![CDATA[<p>I believe Daida is quite well made job scheduler module in nodejs.</p>
 
 <p>Basically, Daida is providing several scheduling strategies. The very representative strategy among them is Local Strategy which I am using.currently.</p>
@@ -148,10 +350,10 @@ Before running the routine, I deleted the job in the queue.so that I empty the j
   
   <entry>
     <title type="html"><![CDATA[case statement in ruby]]></title>
-    <link href="http://ygpark2.herokuapp.com/blog/2012/10/23/case-statement-in-ruby/"/>
+    <link href="http://ygpark2.cloudfoundry.com/blog/2012/10/23/case-statement-in-ruby/"/>
     <updated>2012-10-23T10:40:00+10:00</updated>
-    <id>http://ygpark2.herokuapp.com/blog/2012/10/23/case-statement-in-ruby</id>
-    <content type="html"><![CDATA[<p>Ruby case &#8230; when statement use the === operator internally.</p>
+    <id>http://ygpark2.cloudfoundry.com/blog/2012/10/23/case-statement-in-ruby</id>
+    <content type="html"><![CDATA[<p>Ruby case &hellip; when statement use the === operator internally.</p>
 
 <figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -231,9 +433,9 @@ Before running the routine, I deleted the job in the queue.so that I empty the j
   
   <entry>
     <title type="html"><![CDATA[when rake new_post command does not work in zsh]]></title>
-    <link href="http://ygpark2.herokuapp.com/blog/2012/10/22/when-rake-new-post-command-does-not-work-in-zsh/"/>
+    <link href="http://ygpark2.cloudfoundry.com/blog/2012/10/22/when-rake-new-post-command-does-not-work-in-zsh/"/>
     <updated>2012-10-22T10:15:00+10:00</updated>
-    <id>http://ygpark2.herokuapp.com/blog/2012/10/22/when-rake-new-post-command-does-not-work-in-zsh</id>
+    <id>http://ygpark2.cloudfoundry.com/blog/2012/10/22/when-rake-new-post-command-does-not-work-in-zsh</id>
     <content type="html"><![CDATA[<p>To work around the problem, use below command</p>
 
 <figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -254,11 +456,11 @@ Before running the routine, I deleted the job in the queue.so that I empty the j
   
   <entry>
     <title type="html"><![CDATA[how to use octopress as to posting and deploying to heroku]]></title>
-    <link href="http://ygpark2.herokuapp.com/blog/2012/10/22/how-to-use-otopress-as-to-posting-and-deploying-to-heroku/"/>
+    <link href="http://ygpark2.cloudfoundry.com/blog/2012/10/22/how-to-use-otopress-as-to-posting-and-deploying-to-heroku/"/>
     <updated>2012-10-22T10:14:00+10:00</updated>
-    <id>http://ygpark2.herokuapp.com/blog/2012/10/22/how-to-use-otopress-as-to-posting-and-deploying-to-heroku</id>
-    <content type="html"><![CDATA[<p>When a repo is cloned, it has a default remote called &#8220;origin&#8221; pointing to your forked repo on GitHub.
-To keep track of the original repo, you need to add another remote repo named &#8220;upstream&#8221;</p>
+    <id>http://ygpark2.cloudfoundry.com/blog/2012/10/22/how-to-use-otopress-as-to-posting-and-deploying-to-heroku</id>
+    <content type="html"><![CDATA[<p>When a repo is cloned, it has a default remote called &ldquo;origin&rdquo; pointing to your forked repo on GitHub.
+To keep track of the original repo, you need to add another remote repo named &ldquo;upstream&rdquo;</p>
 
 <figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -271,7 +473,7 @@ To keep track of the original repo, you need to add another remote repo named &#
 
 <p>Those above command will allow you to synchronize the original octopress code.</p>
 
-<p>Now, it&#8217;s time to post a new writing on octopress</p>
+<p>Now, it&rsquo;s time to post a new writing on octopress</p>
 
 <figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>

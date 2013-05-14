@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: cassandra | Tech Note]]></title>
+  <link href="http://ygpark2.cloudfoundry.com/blog/categories/cassandra/atom.xml" rel="self"/>
+  <link href="http://ygpark2.cloudfoundry.com/"/>
+  <updated>2013-05-14T11:07:40+10:00</updated>
+  <id>http://ygpark2.cloudfoundry.com/</id>
+  <author>
+    <name><![CDATA[Young Gyu Park]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Data migration from mysql to cassandra]]></title>
+    <link href="http://ygpark2.cloudfoundry.com/blog/2013/01/24/data-migration-from-mysql-to-cassandra/"/>
+    <updated>2013-01-24T11:32:00+10:00</updated>
+    <id>http://ygpark2.cloudfoundry.com/blog/2013/01/24/data-migration-from-mysql-to-cassandra</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+</feed>

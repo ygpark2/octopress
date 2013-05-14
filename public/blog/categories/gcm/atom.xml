@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: GCM | Tech Note]]></title>
+  <link href="http://ygpark2.cloudfoundry.com/blog/categories/gcm/atom.xml" rel="self"/>
+  <link href="http://ygpark2.cloudfoundry.com/"/>
+  <updated>2013-05-14T11:07:40+10:00</updated>
+  <id>http://ygpark2.cloudfoundry.com/</id>
+  <author>
+    <name><![CDATA[Young Gyu Park]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[android push notification using GCMBroadcastReceiver and customized BroadcastReciever]]></title>
+    <link href="http://ygpark2.cloudfoundry.com/blog/2013/01/23/android-push-notification-using-gcmbroadcastreceiver-and-customized-broadcastreciever/"/>
+    <updated>2013-01-23T15:40:00+10:00</updated>
+    <id>http://ygpark2.cloudfoundry.com/blog/2013/01/23/android-push-notification-using-gcmbroadcastreceiver-and-customized-broadcastreciever</id>
+    <content type="html"><![CDATA[<p>There are two ways to receive the push message.</p>
+
+<h2>one way is to use GCMBroadcastReceiver.</h2>
+
+<p>``` xml AndroidManifest.xml</p>
+
+<pre><code>&lt;receiver
+    android:name="com.google.android.gcm.GCMBroadcastReceiver"
+    android:permission="com.google.android.c2dm.permission.SEND" &gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name="com.google.android.c2dm.intent.RECEIVE" /&gt;
+        &lt;action android:name="com.google.android.c2dm.intent.REGISTRATION" /&gt;
+
+        &lt;category android:name="com.otherlevels.dailydeals" /&gt;
+    &lt;/intent-filter&gt;
+&lt;/receiver&gt;
+
+&lt;service android:name=".GCMIntentService" /&gt;
+</code></pre>
+
+<p>```</p>
+
+<p>As you can see the above AndroidManifest file, they filter the events by setting the action type values between intent-filter tags.
+Because GCMBroadcastReceiver is the class for GCM so you do not need other actions apart from &ldquo;com.google.android.c2dm.intent.RECEIVE&rdquo;, &ldquo;com.google.android.c2dm.intent.REGISTRATION&rdquo;</p>
+
+<p>``` java GCMBroadcastReceiver class <a href="https://code.google.com/p/gcm/source/browse/gcm-client/src/com/google/android/gcm/GCMBroadcastReceiver.java">https://code.google.com/p/gcm/source/browse/gcm-client/src/com/google/android/gcm/GCMBroadcastReceiver.java</a>
+public class GCMBroadcastReceiver extends BroadcastReceiver {</p>
+
+<pre><code>private static final String TAG = "GCMBroadcastReceiver";
+
+@Override
+public final void onReceive(Context context, Intent intent) {
+    Log.v(TAG, "onReceive: " + intent.getAction());
+    String receiverClassName = getClass().getName();
+    if (!receiverClassName.equals(GCMBroadcastReceiver.class.getName())) {
+        GCMRegistrar.setRetryReceiverClassName(receiverClassName);
+    }
+    String className = getGCMIntentServiceClassName(context);
+    Log.v(TAG, "GCM IntentService class: " + className);
+    // Delegates to the application-specific intent service.
+    GCMBaseIntentService.runIntentInService(context, intent, className);
+    setResult(Activity.RESULT_OK, null /* data */, null /* extra */);
+}
+
+...
+</code></pre>
+
+<p>}
+```</p>
+
+<h2>The other way is to customize the BroadcastReciever class by inheriting</h2>
+
+<p>In this method, you first need to set the customized java class name including package name for the tag android:name.The next step is to define the broadcast intents containing an action string.</p>
+
+<p>``` xml AndroidManifest.xml</p>
+
+<pre><code>&lt;receiver
+    android:name="com.google.android.gcm.GCMBroadcastReceiver"
+    android:permission="com.google.android.c2dm.permission.SEND" &gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name="com.google.android.c2dm.intent.RECEIVE" /&gt;
+        &lt;action android:name="com.google.android.c2dm.intent.REGISTRATION" /&gt;
+
+        &lt;category android:name="com.otherlevels.dailydeals" /&gt;
+    &lt;/intent-filter&gt;
+&lt;/receiver&gt;
+</code></pre>
+
+<p>```
+The same effect we can make in java code is to use the registerReceiver() method of the Activity class</p>
+
+<p>``` java
+IntentFilter filter = new IntentFilter(&ldquo;com.pkg.ain.Broadcast&rdquo;);</p>
+
+<p>MyReceiver receiver = new MyReceiver();
+registerReceiver(receiver, filter);
+```</p>
+
+<p>There is two ways to filer the action type. One is to use intent-filter tag as you can see above. The other way is to write a code to distinguish the action type on GCMBroadcastReceiver class file. You can see the example for the following code.</p>
+
+<p>``` java onReceive function</p>
+
+<pre><code>@Override
+public void onReceive(Context context, Intent intent) {
+    Log.d(TAG, "onReceive with action:" + intent.getAction()+"!");
+
+    if (intent.getAction().equals("com.google.android.c2dm.intent.REGISTRATION")) {
+        handleRegistration(context, intent);
+    } else if (intent.getAction().equals(ACTION_SMS_RECEIVED)) {
+
+    } else if (intent.getAction().equals(ACTION_NEW_OUTGOING_SMS)) {
+
+    } else if (intent.getAction().equals("com.google.android.c2dm.intent.RECEIVE")) {
+        ...
+    }
+</code></pre>
+
+<p>```</p>
+
+<h2>References</h2>
+
+<ol>
+<li><a href="http://www.techotopia.com/index.php/Android_Broadcast_Intents_and_Broadcast_Receivers">http://www.techotopia.com/index.php/Android_Broadcast_Intents_and_Broadcast_Receivers</a></li>
+<li><a href="http://stackoverflow.com/questions/6352281/getintent-extras-always-null">http://stackoverflow.com/questions/6352281/getintent-extras-always-null</a></li>
+</ol>
+
+]]></content>
+  </entry>
+  
+</feed>
